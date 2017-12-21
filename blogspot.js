@@ -9,9 +9,9 @@ module.exports = {
   },
   log: console.log,
   cfg: require('./blogspot.cfg'),
+
   // Methods
-  
-  getContentBlog(){
+  getContentBlog(callback){
     let me = this,
     cfg = me.cfg,
     url = cfg.blogUrl,
@@ -27,7 +27,7 @@ module.exports = {
       log(res.headers)
       let $ = cheerio.load(body)
       var posts = $('.date-posts')
-      //log(posts.length)
+      // log(posts.length)
       this.inspectPost(posts.eq(0).html())
       for(let i = 0 ; i < posts.length; i++){
         blogPosts.push(this.inspectPost(posts.eq(i).html()))
@@ -37,6 +37,39 @@ module.exports = {
         log(p.postLink)
         log(p.postContent)
       })
+      callback(blogPosts)
+    })
+  },
+  getHomePage(url,limitedNumberPost){
+    let me = this,
+    cfg = me.cfg,
+    url = url,
+    options = {
+      url:url,
+      headers:me.headers
+    },
+    request = me.request,
+    cheerio = me.cheerio,
+    log = me.log,
+    blogPosts = []
+    request(options,(err,res,body)=>{
+      log(res.headers)
+      let $ = cheerio.load(body)
+      var posts = $('.date-posts')
+      // log(posts.length)
+      this.inspectPost(posts.eq(0).html())
+      if(posts.length < limitedNumberPost) {
+        limitedNumberPost = posts.length
+      }
+      for(let i = 0 ; i < limitedNumberPost; i++){
+        blogPosts.push(this.inspectPost(posts.eq(i).html()))
+      }
+      blogPosts.forEach(p => {
+        log(p.postTitle)
+        log(p.postLink)
+        log(p.postContent)
+      })
+      callback(blogPosts)
     })
   },
   saveFile: function (fileName, fileContent) {
