@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Get Blogspot Content API demo</title>
+    <style>
+        a{text-decoration:none}
+        #posts{width:800px; background:#eee; padding:10px}
+        .post{width:700px; background:#ccc; padding:5px; margin:5px}
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="javascripts/jquery.blogspot.js"></script>
+</head>
+<body>    
+    <script>
+        $().ready(function() {           
+            $('#divPosts').blogspot({
+                blogDomain: 'tuanvannguyen.blogspot.com',
+                blogLitmitedPostNumber: 5
+            })
+        });
+    </script>
+    <h1>View 3 latest post of blog</h1>
+    <div id="divPosts">
+    
+    </div>
+</body>
+</html>
