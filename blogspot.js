@@ -45,19 +45,20 @@ module.exports = {
     options = {
       url:params.url,
       headers:me.headers
-    },
-    limitedNumberPost = params.limitedNumberPost,
+    },    
     request = me.request,
     cheerio = me.cheerio,
     log = me.log,
     blogPosts = []
     request(options,(err,res,body)=>{
-      log(res.headers)
+      // log(res.headers)
       let $ = cheerio.load(body)
       var posts = $('.date-posts')
-      log(posts.length)
+      log('posts.length: %s',posts.length)
+      log('params.limitedNumberPost: %s', params.limitedNumberPost)
+      let limitedNumberPost = params.limitedNumberPost || posts.length
       if(posts.length < limitedNumberPost) {
-        limitedNumberPost = posts.length-1
+        limitedNumberPost = posts.length
       }
       log('limitedNumberPost: %s', limitedNumberPost)
       for(let i = 0 ; i < limitedNumberPost; i++){

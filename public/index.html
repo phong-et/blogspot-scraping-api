@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Get Blogspot Content API demo</title>
+    <style>
+        a{text-decoration:none}
+        #posts{width:800px; background:#eee; padding:10px}
+        .post{width:700px; background:#ccc; padding:5px; margin:5px}
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+    
+    <script>
+        $().ready(function() {
+            function drawPost(bPost, blogContainerId) {
+                // post title
+                var postTitile = $('<h3 class="post-title"><a target="_blank" href="' + bPost.postLink + '">' + bPost.postTitle + '</a></h3>')
+                // post content
+                var postContent = $('<div class="post-content">');
+                postContent.append(bPost.postContent);
+                // append post title and post content to .post
+                var post = $('<div class="post">');
+                post.append(postTitile);
+                post.append(postContent);
+                // append .post to #post
+                $('#' + blogContainerId).append(post);
+            }
+            function getBlogspotContent(options, callback) {
+                var url = 'http://localhost:3000/home/' + options.blogDomain + '/'
+                if (options.blogLitmitedPostNumber) {
+                    url += options.blogLitmitedPostNumber
+                }
+                $.ajax({
+                    url: url,
+                    success: function(blogPosts) {
+                        // draw posts to html
+                        blogPosts.forEach(function(bPost) {
+                            drawPost(bPost, options.blogContainerId)
+                        })
+                    }
+                });
+            }
+            getBlogspotContent({
+            blogDomain: 'tuanvannguyen.blogspot.com',
+                //blogLitmitedPostNumber: 3,
+                blogContainerId: 'divPosts'
+            })
+        });
+    </script>
+    <h1>View 3 latest post of blog</h1>
+    <div id="divPosts">
+    
+    </div>
+</body>
+</html>
