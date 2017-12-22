@@ -10,7 +10,7 @@ module.exports = {
   log: console.log,
   cfg: require('./blogspot.cfg'),
 
-  // Methods
+  // Methods test defaut blog in blogspot.cfg
   getContentBlog(callback){
     let me = this,
     cfg = me.cfg,
@@ -28,26 +28,25 @@ module.exports = {
       let $ = cheerio.load(body)
       var posts = $('.date-posts')
       // log(posts.length)
-      this.inspectPost(posts.eq(0).html())
+      // this.inspectPost(posts.eq(0).html())
       for(let i = 0 ; i < posts.length; i++){
         blogPosts.push(this.inspectPost(posts.eq(i).html()))
       }
-      blogPosts.forEach(p => {
-        log(p.postTitle)
-        log(p.postLink)
-        log(p.postContent)
-      })
+      // blogPosts.forEach(p => {
+      //   log(p.postTitle)
+      //   log(p.postLink)
+      //   log(p.postContent)
+      // })
       callback(blogPosts)
     })
   },
-  getHomePage(url,limitedNumberPost){
+  getHomePage(params, callback){
     let me = this,
-    cfg = me.cfg,
-    url = url,
     options = {
-      url:url,
+      url:params.url,
       headers:me.headers
     },
+    limitedNumberPost = params.limitedNumberPost,
     request = me.request,
     cheerio = me.cheerio,
     log = me.log,
@@ -56,21 +55,44 @@ module.exports = {
       log(res.headers)
       let $ = cheerio.load(body)
       var posts = $('.date-posts')
-      // log(posts.length)
-      this.inspectPost(posts.eq(0).html())
+      log(posts.length)
       if(posts.length < limitedNumberPost) {
-        limitedNumberPost = posts.length
+        limitedNumberPost = posts.length-1
       }
+      log('limitedNumberPost: %s', limitedNumberPost)
       for(let i = 0 ; i < limitedNumberPost; i++){
         blogPosts.push(this.inspectPost(posts.eq(i).html()))
       }
-      blogPosts.forEach(p => {
-        log(p.postTitle)
-        log(p.postLink)
-        log(p.postContent)
-      })
+      // blogPosts.forEach(p => {
+      //   log(p.postTitle)
+      //   log(p.postLink)
+      //   log(p.postContent)
+      // })
       callback(blogPosts)
     })
+  },
+  /**
+   * 
+   * @param {* post html dom} post 
+   * @param {* return a json object include 3 prop : postTitle, postLink, postContent } callback 
+   */
+  inspectPost(post,callback){
+    let postTitle, postContent, postLink, cheerio = this.cheerio, log = this.log
+    let $ = cheerio.load(post);
+    // get html dom of class .post-title
+    let htmlTitle = $('.post-title').html().trim()
+    // get html đom of class .post-body, get at here before $ load new dom
+    postContent = $('.post-body').html()
+    // inspect html dom of .post-title 
+    $ = cheerio.load(htmlTitle)
+    postTitle = $('a').text().trim()
+    postLink = $('a').attr('href')
+
+    // log('title: %s',postTitle)
+    // log('link: %s',postLink)
+    // log('content: %s',postContent)
+
+    return ({postTitle, postLink, postContent})
   },
   saveFile: function (fileName, fileContent) {
     let me = this, log = me.log
@@ -83,16 +105,4 @@ module.exports = {
         log('Write file ' + fileName + ' > success');
     });
   },
-  inspectPost(post,callback){
-    let postTitle, postContent, postLink, cheerio = this.cheerio, log = this.log
-    let $ = cheerio.load(post);
-    let htmlTitle = $('.post-title').html().trim()
-    postContent = $('.post-body').html()   
-    $ = cheerio.load(htmlTitle)
-    postTitle = $('a').text()
-    postLink = $('a').attr('href') 
-    // log('title: %s',title)
-    // log('content: %s',content)
-    return ({postTitle, postLink, postContent})
-  }
 }
