@@ -2,7 +2,7 @@
 A RESTful web service for scraping Blogspot content
 
 #  DEMO 
-I will host this webservice to heroku later
+I will deploy to heroku later
 
 # FEATURES
 * Use express generator module 
@@ -22,7 +22,7 @@ Create a html file and include :
       $().ready(function() {   
           $('#divPosts').blogspot({
                 blogDomain: 'irinatyt.blogspot.com',
-                blogLitmitedPostNumber: 5
+                blogLitmitedPostNumber: 3
           })
       });
       
