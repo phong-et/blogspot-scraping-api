@@ -21,7 +21,7 @@ Create a html file and include :
 * <script src="javascripts/jquery.blogspot.js"></script>
       $().ready(function() {   
           $('#divPosts').blogspot({
-                blogDomain: 'tuanvannguyen.blogspot.com',
+                blogDomain: 'irinatyt.blogspot.com',
                 blogLitmitedPostNumber: 5
           })
       });
