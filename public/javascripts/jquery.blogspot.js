@@ -4,8 +4,9 @@
         // This is the easiest way to have default options.
         var settings = $.extend({
             // These are the defaults.
+            blogApiUrl:'https://blogspotscraping.herokuapp.com/home',
             blogDomain: 'irinatyt.blogspot.com',
-            blogLitmitedPostNumber: 3
+            blogLitmitedPostNumber: '' // default all post home page setting of blogspot user 
         }, options );      
         
         var $posts = this
@@ -24,10 +25,16 @@
             $posts.append(post);
         }
         function getBlogspotContent(options) {
-            var url = 'http://localhost:3000/home/' + options.blogDomain + '/'
-            if (options.blogLitmitedPostNumber) {
-                url += options.blogLitmitedPostNumber
+            if(options.blogDomain == undefined) {
+                // alert('You have to input blogDomain params')
+                console.log('%c ▲ You have to input blogDomain params ', 'background: transparent; color: #ff1212');
+                return 0
             }
+            let blogApiUrl =  options.blogApiUrl || settings.blogApiUrl
+            let blogDomain = options.blogDomain || settings.blogDomain
+            let blogLitmitedPostNumber = options.blogLitmitedPostNumber || settings.blogLitmitedPostNumber
+            var url =  blogApiUrl + '/' + blogDomain  + '/' + blogLitmitedPostNumber
+
             $.ajax({
                 url: url,
                 success: function(blogPosts) {

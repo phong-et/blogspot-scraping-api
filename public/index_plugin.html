@@ -14,12 +14,13 @@
     <script>
         $().ready(function() {           
             $('#divPosts').blogspot({
-                blogDomain: 'tuanvannguyen.blogspot.com',
-                blogLitmitedPostNumber: 5
+                //blogApiUrl:'https://blogspotscraping.herokuapp.com/home', // default 
+                blogDomain: 'tuanvannguyen.blogspot.com', // required
+                blogLitmitedPostNumber: 3 // default all post 
             })
         });
     </script>
-    <h1>View 3 latest post of blog</h1>
+    <h1>Post</h1>
     <div id="divPosts">
     
     </div>
