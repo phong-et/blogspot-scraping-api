@@ -5,9 +5,10 @@ A RESTful web service for scraping Blogspot content
   * URL API : https://blogspotscraping.herokuapp.com 
   * [Client demo](https://blogspotscraping.herokuapp.com/index_plugin.html)
 # FEATURES
-* A web template of express generator module 
-* Cross domain 
-* Get post home page of blogspot url
+* A RESTful web service from express generator module 
+* Support Cross domain (Embed from another site) 
+* Current only support get content post of home page
+* jQuery plugin to embed blogspot posts to website easier 
 
 # Install API
     git clone https://github.com/phong-et/blogspot-scraping-api.git
