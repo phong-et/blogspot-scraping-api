@@ -2,21 +2,24 @@
 A RESTful web service for scraping Blogspot content
 
 #  DEMO 
-I will deploy to heroku later
-
+  * URL API : https://blogspotscraping.herokuapp.com 
+  * [Client demo](https://blogspotscraping.herokuapp.com/index_plugin.html)
 # FEATURES
-* Use express generator module 
+* A web template of express generator module 
 * Cross domain 
-* Change url webservice ( goto public/javascripts/jquery.blogspot.js change url to your webservice)
+* Get post home page of blogspot url
 
-# USAGE Service
+# Install API
     git clone https://github.com/phong-et/blogspot-scraping-api.git
     npm install 
     node bin/www
- Chrome goto http://localhost:3000/index_plugin.html            
+Open Chrome goto http://localhost:3000/index_plugin.html to test API
+# Documents API
+  * Get posts at blogspot home page with a limited number post `/home/:domain/:limitedNumberPost` => /home/irinatyt.blogspot.com/5
+  * Get all posts of blogspot home page `/home/:domain/` => /home/irinatyt.blogspot.com/
 # USAGE Client (cross domain)
 
-Create a html file and include :
+Create a html file and include, ref [source](https://blogspotscraping.herokuapp.com/index_plugin.html) :
 * <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 * <script src="javascripts/jquery.blogspot.js"></script>
       $().ready(function() {   
