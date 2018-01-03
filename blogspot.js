@@ -83,7 +83,7 @@ module.exports = {
     // get html dom of class .post-title
     let htmlTitle = $('.post-title').html().trim()
     // get html đom of class .post-body, get at here before $ load new dom
-    postContent = $('.post-body').html()
+    postContent = $('.post-body').text().trim()
     // inspect html dom of .post-title 
     $ = cheerio.load(htmlTitle)
     postTitle = $('a').text().trim()
