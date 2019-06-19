@@ -1,0 +1,16 @@
+
+{
+    "name": "switchtool",
+    "version": "1.0.0",
+    "description": "help switch project fasty",
+    "main": "install.js",
+    "scripts": {
+        "setup": "npm install && node setup && node update"
+    },
+    "author": "phillip",
+    "license": "ISC",
+    "dependencies": {
+        "npm": "^6.9.0"
+    }
+}
+        
