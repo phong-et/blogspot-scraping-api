@@ -5,7 +5,7 @@
     "description": "help switch project fasty",
     "main": "install.js",
     "scripts": {
-        "setup": "node delete && npm install && npm fix audit && node setup && node update"
+        "setup": "node delete && npm install && npm audit fix && node setup && node update"
     },
     "author": "phillip",
     "license": "ISC",
