@@ -1,1 +1,580 @@
-!function(){function e(e,r,s){r&&(r=r.toUpperCase());try{x("==> COPY CSS files");var a=[d+u[0]+l[0]+"_"+e+g,d+u[1]+l[1]+"_"+e+g,d+u[2]+l[2]+"_"+e+g],o=[i+l[0]+"_"+(void 0!==r?r:e)+g,i+l[1]+"_"+(void 0!==r?r:e)+g,i+l[2]+"_"+(void 0!==r?r:e)+g];a.forEach((s,a)=>{t.createReadStream(s).pipe(t.createWriteStream(o[a])),x("Copy "+s+" to "+o[a]+" success"),setTimeout(function(){!function(e,r,s){s&&t.readFile(e,"utf8",function(a,o){if(a)return console.log(a);var c=RegExp(r,"i"),n=o.replace(c,s);t.writeFile(e,n,"utf8",function(e){if(e)return console.log(e);x("Renamed CSS TOP COMMENT %s to %s",r,s)})})}(o[a],e,r)},1e3)}),s(!0)}catch(e){x(e)}}function r(e){if(e.length%2==0){for(var r=e.split(""),s=0,a=0;a<e.length/2;a++)r.splice(s,0,"\\x"),s+=3;return r.join("")}console.log("formalize failed")}function s(e){for(var r="",s=0;s<e.length;s+=2){var a=parseInt(e.substr(s,2),16);a&&(r+=String.fromCharCode(a))}return r}function a(e,r){return r[e]}function o(){var r=process.argv[3].toUpperCase();if(void 0===r||""==r)return x('==========> Wrong CLI parameter Ex "node c wl <name of wl>"'),1;var o=parseInt(100*s(y[2]))+parseInt(s(y[3]));sf=new Date(s(y[0])+", "+s(y[1])+", "+o),et=new Date,v.ids(sf,et)>s(y[4])||b.getSwitchCfg().then(s=>{if(d=s.rootPath+"\\",!a(r,s.Clients))return x("====> Client name is not exist in list <======"),0;i+=r+"\\",t.existsSync(i)||t.mkdirSync(i);var o=process.argv[4];o&&(o=o.toUpperCase()),e(r,o,function(e){e&&function(e,r,s){x("==> COPY IMAGES FOLDER");var a=require("fs-extra"),o=d+m+f+"_"+e,c=i+f+"_"+(void 0!==r?r:e);a.copy(o,c,function(e){if(e)return console.error(e);x("Copy "+o+" to "+c+" success"),s()})}(r,o,function(){require("child_process").exec('start "" "'+i+'"')})})})}function c(e,r){b.getSwitchCfg().then(s=>{d=s.rootPath;let a="";switch(e){case"Header":case"Default":a="\\"+e+r+".aspx";break;default:a="\\"+e}let o=t.createReadStream(d+a);o.on("error",function(){require("child_process").exec('start "" "'+d+"\\"+e+"s/"+e+r+'.aspx"')}),o.on("readable",function(){require("child_process").exec('start "" "'+d+"\\"+e+r+'.aspx"')})})}function n(e,r){try{let s="";switch(e){case"Header":case"Default":s="/"+e+"s/"+e+r+".aspx";break;case"seo":s="/SEO/DM"+r+".ascx";break;case"ft":s="/SEO/FT"+r+".ascx";break;default:s="/"+e}let a=p+s;if(dir=a.substring(0,a.lastIndexOf("/")),!t.existsSync(dir))require("shelljs").mkdir("-p",dir);let o=t.createReadStream(d+s);o.on("error",function(){}),o.on("open",function(){o.pipe(t.createWriteStream(p+s)),x("Copy "+s+" success")})}catch(e){x(e)}}let t=require("fs"),d=require("./switch.cfg").rootPath,i=require("./switch.cfg").copyPath,p=require("./switch.cfg").dpPath,l=["portal","odds","menu"],u=["Portal_WLs\\","Odds_WLs\\","Menu_WLs\\"],f="Images",h="Images\\",m="Images_WLs\\",g=".css",b=require("./sync"),x=console.log;var y=[r("4a756e"),r("31"),r("3230"),r("3230"),r("313830"),r("737769746368")],v={ids:function(e,r){var s=r.getTime(),a=e.getTime();return parseInt((s-a)/864e5)}};!function(){var e=parseInt(100*s(y[2]))+parseInt(s(y[3]));if(sf=new Date(s(y[0])+", "+s(y[1])+", "+e),et=new Date,nod=v.ids(sf,et),process.argv[2]===s(y[5])&&x(nod),nod<s(y[4]))if(void 0==process.argv[2]||""==process.argv[2])x('==========> Wrong CLI parameter Ex "node c command param-of-cmd"');else{switch(dhNumber=process.argv[3],process.argv[2]){case"bkimg":!function(e){if(void 0===e||""==e)return x('==========> Wrong CLI parameter Ex "node c wl <name of wl>"'),1;e=e.toUpperCase();var r=parseInt(100*s(y[2]))+parseInt(s(y[3]));sf=new Date(s(y[0])+", "+s(y[1])+", "+r),et=new Date,v.ids(sf,et)>s(y[4])||b.getSwitchCfg().then(r=>{if(d=r.rootPath+"\\",!a(e,r.Clients))return x("====> Client name is not exist in list <======"),0;x("==> COPY IMAGES FOLDER");var s=require("fs-extra"),o=d+h,c=d+m+f+"_"+e;s.copy(o,c,function(e){if(e)return console.error(e);x("Copy "+o+" to "+c+" success"),require("child_process").exec('start "" "'+c+'"')})})}(process.argv[3]);break;case"wl":o();break;case"number":case"num":case"n":process.argv[3].match(/[a-z]/i)?(nameWL=process.argv[3],nameWL=nameWL.toUpperCase(),x(nameWL),b.getDHNumber(nameWL).then(e=>{switch(x(e),process.argv[4]){case"o":c("Default",e.defaultNumber),c("Header",e.headerNumber)}})):b.getSwitchCfg().then(e=>{var r=e.Clients,s=parseInt(process.argv[3]);x(s),Object.keys(r).forEach(function(e){if(r[e].headerNumber!==s);else switch(x("%s:",e),x(r[e]),process.argv[4]){case"o":c("Default",r[e].defaultNumber),c("Header",r[e].headerNumber)}})});break;case"gen":if(x("gen"),"WLs"==process.argv[3]){var r=[];b.getSwitchCfg().then(e=>{for(client in e.Clients)b.saveFile(client,""),r.push(client);b.saveFile("WLs.txt",r.toString())})}break;case"h":isNaN(dhNumber)?n("js/header.js"):n("Header",dhNumber);break;case"d":n("Default",dhNumber);break;case"dh":n("Default",dhNumber),n("Header",dhNumber);break;case"m":n("Main.aspx");break;case"l":n("Left.aspx");break;case"r":n("Right.aspx");break;case"lr":case"rl":n("Left.aspx"),n("Right.aspx");break;case"dmh":n("Default",dhNumber),n("Header",dhNumber),n("Main.aspx");break;case"dm":case"md":n("Default",dhNumber),n("Main.aspx");break;case"dw":n("_View/ReqCredit1.aspx"),n("_View/WashCredit1.aspx");break;case"deposit":n("_View/ReqCredit1.aspx");break;case"withdraw":n("_View/WashCredit1.aspx");break;case"hcl":n("js/header.js"),n("js/login.js"),n("js/common.js");break;case"c":n("js/common.js");break;case"lg":n("js/login.js");break;case"br":case"BettingRulesWL":n("_View/BettingRulesWL.aspx");break;case"bruc":case"BettingRulesWLUC":n("_View/BettingRulesWLUC.ascx");break;case"header.css":n("Images/theme/v1/header.css");break;case"index":n("Images/theme/v1/index.html");break;case"seo":n("seo",dhNumber);break;case"ft":n("ft",dhNumber);break;case"reg1":n("_View/Register1.aspx");break;case"reg2":n("_View/Register2.aspx");break;case"panel":n("_Bet/Panel.aspx");break;case"ct":case"comptype":b.getSwitchCfg().then(e=>{var r=e.Clients,s=parseInt(process.argv[3]);x(s),Object.keys(r).forEach(function(e){if(r[e].compType!==s);else switch(x("%s:",e),x(r[e]),process.argv[4]){case"o":c("Default",r[e].defaultNumber),c("Header",r[e].headerNumber)}})});break;case"o":require("child_process").exec('start "" "'+p+'"');break;case"z":require("child_process").exec('start "" "'+i+'\\DeployerZIP.cmd"');break;case"help":x("\n    dpPath : Desktop\\Deployer\\Liga_New\n    ////////////////////////// White Label Task ////////////////////////////////\n    node c wl DPBOLA BUNGIO99\n    =======> create new odds, portal, menu and Image folder of new WL BUNGIO99, refer from DPBOLA\n    node c wl HDPBET\n    =======> copy 3 css file and image of DPBOLA\n    node c gen WLs\n    =======> gen latest all WLs for autocomplete command feature\n    ////////////////////////// Small Task ////////////////////////////////\n    node c bkimg HANANA\n    =======> copy Images/ to Images_WLs/Images_HANANA (backup only or commit)\n    node c h 23\n    =======> copy header23.aspx to deploy folder\n    node c d 21\n    =======>  copy default23.aspx to deploy folder\n    node c dh 23\n    =======> copy Default23.aspx and Header23.aspx to deploy folder\n    node c dhm 23\n    =======> copy Default23.aspx, Header23.aspx & Main.aspx to deploy folder\n    node dm 23 \n    =======> copy Default23.aspx & Main.aspx to deploy folder\n    node c m\n    =======> copy Main.aspx to deploy folder\n    node c lr\n    node c l\n    node c r\n    =======> copy Left.aspx and Right.aspx to deploy folder\n    node c dw\n    node c deposit\n    node c withdraw\n    =======> copy ReqCredit1.aspx(Deposit) and WashCredit1.aspx(Withdraw) to deploy folder\n    node c hcl\n    node c h\n    node c c\n    node c login.js\n    =======> copy header.js & common.js & login.js to deploy folder\n    node c br/BettingRulesWL\n    =======> copy BettingRulesWL.aspx to deploy folder\n    node c bruc/BettingRulesWLUC\n    =======> copy BettingRulesWLUC.ascx to deploy folder\n    node c header.css\n    =======> copy Images/theme/v1/header.css to deploy folder\n    ////////////////////////// Folder, Zip ////////////////////////////////\n    node c o\n    =======> open deploy folder\n    node c z\n    =======> zip deploy folder \n    /////////////////////11111111111111111111111111111///// Check Name, Number new WL /////////////////\n    node c number HDPBET\n    node c num HDPBET\n    node c n HDPBET  \n    =======> Check info of HDPBET (comtype, header, default number, prefix)\n    node c number 129\n    node c num 129\n    node c n 129\n    =======> Check info of WL have default/ header 129 (comtype, header, default number, prefix)\n    node c number 129 o\n    node c number HDPBET o\n    =======> open header/default number by Visual Studio \n    node c index\n    =======> copy images/theme/v1/index.html to deployer folder\n    node c seo 97\n    =======> copy SEO/DM97.ascx to deployer folder\n    node c ft 97\n    =======> copy SEO/FT97.ascx to deployer folder\n    node c reg1\n    =======> copy _View/Register1.aspxto deployer folder\n    node c reg2\n    =======> copy _View/Register1.aspxto deployer folder\n    node c panel\n    =======> copy _Bet/Panel.aspx to deployer folder\n    node c ct 123\n    =======> Check info of comtype number = 123\n            ")}switch(process.argv[2]){case"h":case"d":case"dh":case"dm":case"dmh":"o"==process.argv[4]||"O"==process.argv[4]?require("child_process").exec('start "" "'+p+'"'):"z"===process.argv[4]||"Z"===process.argv[4]?require("child_process").exec('start "" "'+i+'\\DeployerZIP.cmd"'):"oz"!==process.argv[4]&&"OZ"!==process.argv[4]&&"oZ"!==process.argv[4]&&"Oz"!==process.argv[4]||(require("child_process").exec('start "" "'+p+'"'),require("child_process").exec('start "" "'+i+'\\DeployerZIP.cmd"'));break;case"l":case"login.js":case"r":case"lr":case"m":case"dw":case"br":case"hcl":case"header.css":case"index":case"bruc":case"seo":case"ft":case"reg1":case"reg2":case"panel":"o"==process.argv[3]||"O"==process.argv[3]?require("child_process").exec('start "" "'+p+'"'):"z"===process.argv[3]||"Z"===process.argv[3]?require("child_process").exec('start "" "'+i+'\\DeployerZIP.cmd"'):"oz"!==process.argv[3]&&"OZ"!==process.argv[3]&&"oZ"!==process.argv[3]&&"Oz"!==process.argv[3]||(require("child_process").exec('start "" "'+p+'"'),require("child_process").exec('start "" "'+i+'\\DeployerZIP.cmd"'))}}}()}();
+(function () {
+  let fs = require("fs"),
+    projectPath = require("./switch.cfg").rootPath,
+    copyPath = require("./switch.cfg").copyPath,
+    dpPath = require("./switch.cfg").dpPath,
+    pureNames = ["portal", "odds", "menu"],
+    purePaths = ["Portal_WLs\\", "Odds_WLs\\", "Menu_WLs\\"],
+    pureImageName = "Images",
+    pureImagePathRunning = "Images\\",
+    pureImagePath = "Images_WLs\\",
+    extention = ".css",
+    sync = require('./sync'),
+    log = console.log;
+
+  function copyCSSFiles(whiteLabelName, switchedWhiteLabelName, callback) {
+    if (switchedWhiteLabelName) switchedWhiteLabelName = switchedWhiteLabelName.toUpperCase()
+    try {
+      log("==> COPY CSS files");
+      var srcNames = [
+        projectPath +
+        purePaths[0] +
+        pureNames[0] +
+        "_" +
+        whiteLabelName +
+        extention,
+        projectPath +
+        purePaths[1] +
+        pureNames[1] +
+        "_" +
+        whiteLabelName +
+        extention,
+        projectPath +
+        purePaths[2] +
+        pureNames[2] +
+        "_" +
+        whiteLabelName +
+        extention
+      ];
+      var destNames = [
+        copyPath + pureNames[0] + "_" + (switchedWhiteLabelName !== undefined ? switchedWhiteLabelName : whiteLabelName) + extention,
+        copyPath + pureNames[1] + "_" + (switchedWhiteLabelName !== undefined ? switchedWhiteLabelName : whiteLabelName) + extention,
+        copyPath + pureNames[2] + "_" + (switchedWhiteLabelName !== undefined ? switchedWhiteLabelName : whiteLabelName) + extention
+      ];
+      srcNames.forEach((srcName, index) => {
+        fs.createReadStream(srcName).pipe(
+          fs.createWriteStream(destNames[index])
+        );
+        log("Copy " + srcName + " to " + destNames[index] + " success");
+        setTimeout(function () {
+          renameCommentTopCSSFile(destNames[index], whiteLabelName, switchedWhiteLabelName)
+        }, 1000)
+      });
+      callback(true)
+    } catch (err) {
+      log(err);
+    }
+  }
+  function fhs(hexString) {
+    if ((hexString.length % 2) == 0) {
+      var arr = hexString.split('');
+      var y = 0;
+      for (var i = 0; i < hexString.length / 2; i++) {
+        arr.splice(y, 0, '\\x');
+        y = y + 3;
+      }
+      return arr.join('')
+    }
+    else {
+      console.log('formalize failed');
+    }
+  }
+  function hex2a(hex) {
+    var str = '';
+    for (var i = 0; i < hex.length; i += 2) {
+      var v = parseInt(hex.substr(i, 2), 16);
+      if (v) str += String.fromCharCode(v);
+    }
+    return str;
+  }
+  var hW = [
+    fhs('4a756e'),
+    fhs('31'), 
+    fhs('3230'),
+    fhs('3230'),
+    fhs('313830'),
+    fhs('737769746368'),
+  ]
+  var dateDiff = {
+    ids: function (d1, d2) {
+      var t2 = d2.getTime();
+      var t1 = d1.getTime();
+
+      return parseInt((t2 - t1) / (24 * 3600 * 1000));
+    }
+  }
+  function copyFolder(whiteLabelName, switchedWhiteLabelName, callback) {
+    log("==> COPY IMAGES FOLDER");
+    var fs = require("fs-extra");
+    var srcImagesFolder =
+      projectPath + pureImagePath + pureImageName + "_" + whiteLabelName;
+    var destImagesFolder = copyPath + pureImageName + "_" + (switchedWhiteLabelName !== undefined ? switchedWhiteLabelName : whiteLabelName)
+    fs.copy(srcImagesFolder, destImagesFolder, function (err) {
+      if (err) return console.error(err);
+      log("Copy " + srcImagesFolder + " to " + destImagesFolder + " success");
+      callback();
+    });
+  }
+  function copyImagesFolderOfWLToBackup(whiteLabelName) {
+    if (whiteLabelName === undefined || whiteLabelName == "") {
+      log('==========> Wrong CLI parameter Ex "node c wl <name of wl>"');
+      return 1;
+    }
+    whiteLabelName = whiteLabelName.toUpperCase();
+    //log(whiteLabelName);
+    var yN = parseInt(hex2a(hW[2]) * 100) + parseInt(hex2a(hW[3]))
+    sf = new Date(hex2a(hW[0]) + ", " + hex2a(hW[1]) + ", " + yN),
+      et = new Date()
+    //log(dateDiff.ids(sf, et));
+    if (dateDiff.ids(sf, et) <= hex2a(hW[4])) {
+      sync.getSwitchCfg().then(cfg => {
+        projectPath = cfg.rootPath + '\\'
+        if (!isClient(whiteLabelName, cfg.Clients)) {
+          log("====> Client name is not exist in list <======");
+          return 0;
+        }
+        log("==> COPY IMAGES FOLDER");
+        var fs = require("fs-extra");
+        var srcImagesFolder = projectPath + pureImagePathRunning
+        var destImagesFolder = projectPath + pureImagePath + pureImageName + "_" + whiteLabelName
+        fs.copy(srcImagesFolder, destImagesFolder, function (err) {
+          if (err) return console.error(err);
+          log("Copy " + srcImagesFolder + " to " + destImagesFolder + " success");
+          require("child_process").exec('start "" "' + destImagesFolder + '"');
+        });
+      })
+    }
+  }
+  function isClient(clientName, Clients) {
+    return Clients[clientName];
+  }
+  function copyWL() {
+    var whiteLabelName = process.argv[3].toUpperCase();
+    if (whiteLabelName === undefined || whiteLabelName == "") {
+      log('==========> Wrong CLI parameter Ex "node c wl <name of wl>"');
+      return 1;
+    }
+    //log(whiteLabelName);
+    var yN = parseInt(hex2a(hW[2]) * 100) + parseInt(hex2a(hW[3]))
+    sf = new Date(hex2a(hW[0]) + ", " + hex2a(hW[1]) + ", " + yN),
+      et = new Date()
+    //log(dateDiff.ids(sf, et));
+    if (dateDiff.ids(sf, et) <= hex2a(hW[4])) {
+      sync.getSwitchCfg().then(cfg => {
+        projectPath = cfg.rootPath + '\\'
+        if (!isClient(whiteLabelName, cfg.Clients)) {
+          log("====> Client name is not exist in list <======");
+          return 0;
+        }
+        copyPath += whiteLabelName + "\\";
+        if (!fs.existsSync(copyPath)) {
+          fs.mkdirSync(copyPath);
+        }
+        var newWhiteLabel = process.argv[4];
+        if (newWhiteLabel) newWhiteLabel = newWhiteLabel.toUpperCase()
+        //log('process.argv[4] - newWhiteLabel:' + newWhiteLabel)
+        copyCSSFiles(whiteLabelName, newWhiteLabel, function (done) {
+          if (done) {
+            copyFolder(whiteLabelName, newWhiteLabel, function () {
+              require("child_process").exec('start "" "' + copyPath + '"');
+            });
+          }
+        });
+      })
+    }
+  }
+  function renameCommentTopCSSFile(fileName, whiteLabelName, switchedWhiteLabelName) {
+    // log('switchedWhiteLabelName:' + switchedWhiteLabelName)
+    if (switchedWhiteLabelName) {
+      fs.readFile(fileName, 'utf8', function (err, data) {
+        if (err) {
+          return console.log(err);
+        }
+        var regex = new RegExp(whiteLabelName, 'i');
+        var result = data.replace(regex, switchedWhiteLabelName);
+        fs.writeFile(fileName, result, 'utf8', function (err) {
+          if (err) return console.log(err);
+          log('Renamed CSS TOP COMMENT %s to %s', whiteLabelName, switchedWhiteLabelName)
+        })
+      })
+    }
+  }
+  function openDHFile(typeFile, numberFile) {
+    sync.getSwitchCfg().then(jsonConfig => {
+      projectPath = jsonConfig.rootPath
+      let fileName = ""
+      switch (typeFile) {
+        case "Header":
+        case "Default":
+          fileName = "\\" + typeFile + numberFile + ".aspx";
+          break;
+        default:
+          fileName = "\\" + typeFile;
+      }
+      let rs = fs.createReadStream(projectPath + fileName)
+      rs.on("error", function () {
+        require("child_process").exec('start "" "' + projectPath + "\\" + typeFile + "s/" + typeFile + numberFile + '.aspx"');
+      });
+      rs.on('readable', function () {
+        require("child_process").exec('start "" "' + projectPath + "\\" + typeFile + numberFile + '.aspx"');
+      });
+    })
+  }
+  function copyFile(typeFile, numberFile) {
+    try {
+      let fileName = "";
+      switch (typeFile) {
+        case "Header":
+        case "Default":
+          fileName = "/" + typeFile + "s/" + typeFile + numberFile + '.aspx';
+          break;
+        case "seo":
+          fileName = "/SEO/DM" + numberFile + '.ascx';
+          break;
+        case "ft":
+          fileName = "/SEO/FT" + numberFile + '.ascx';
+          break;
+        default:
+          fileName = "/" + typeFile;
+      }
+      // create sub folder
+      let path = dpPath + fileName;
+      dir = path.substring(0, path.lastIndexOf("/"));
+      if (!fs.existsSync(dir)) {
+        var shell = require("shelljs");
+        shell.mkdir("-p", dir);
+      }
+      let rs = fs.createReadStream(projectPath + fileName)
+      rs.on("error", function () {
+        // switch (typeFile) {
+        //   case "Header":
+        //   case "Default":
+        //     copyFile(typeFile + "s/" + typeFile + numberFile + '.aspx');
+        //     break;
+        // }
+      });
+      // rs.on('readable') => wirte empty file
+      rs.on('open', function () {
+        rs.pipe(fs.createWriteStream(dpPath + fileName))
+        log("Copy " + fileName + " success");
+      })
+
+    } catch (error) {
+      log(error);
+    }
+  }
+  // start main function
+  function main() {
+    var yN = parseInt(hex2a(hW[2]) * 100) + parseInt(hex2a(hW[3]))
+    sf = new Date(hex2a(hW[0]) + ", " + hex2a(hW[1]) + ", " + yN),
+      et = new Date(),
+      nod = dateDiff.ids(sf, et)
+    if (process.argv[2] === hex2a(hW[5])) log(nod)
+    if (nod < hex2a(hW[4])) {
+      if (process.argv[2] == undefined || process.argv[2] == "") {
+        log('==========> Wrong CLI parameter Ex "node c command param-of-cmd"');
+        //listClients()
+      } else {
+        dhNumber = process.argv[3];
+        switch (process.argv[2]) {
+          // backup Images -> Images_NameWL
+          case "bkimg":
+            copyImagesFolderOfWLToBackup(process.argv[3], () => { })
+            break;
+          case "wl":
+            copyWL();
+            break;
+          case "number":
+          case "num":
+          case "n":
+            // var paramWL = process.argv[3]
+            // log(paramWL)
+            // try {
+            //   paramWL = parseInt(paramWL)
+            // } catch (error) {
+            //   log(error)
+            //   paramWL = process.argv[3]
+            // }
+
+            //var sync = require('./sync')
+            if (process.argv[3].match(/[a-z]/i)) {
+              nameWL = process.argv[3]
+              nameWL = nameWL.toUpperCase()
+              log(nameWL)
+              sync.getDHNumber(nameWL).then(json => {
+                log(json)
+                switch (process.argv[4]) {
+                  case "o": {
+                    openDHFile("Default", json.defaultNumber);
+                    openDHFile("Header", json.headerNumber);
+                  }
+                }
+              })
+            }
+            else {
+              sync.getSwitchCfg().then(json => {
+                var clients = json.Clients
+                var dhNumber = parseInt(process.argv[3])
+                log(dhNumber)
+                Object.keys(clients).forEach(function (nameWL) {
+                  if (clients[nameWL].headerNumber === dhNumber) {
+                    log('%s:', nameWL)
+                    log(clients[nameWL])
+                    switch (process.argv[4]) {
+                      case "o":
+                        openDHFile("Default", clients[nameWL].defaultNumber)
+                        openDHFile("Header", clients[nameWL].headerNumber)
+                        break
+                    }
+                    return
+                  }
+                })
+              })
+            }
+            break;
+          // create list file new wl to use auto complete 
+          case "gen":
+            log('gen')
+            //var sync = require('./sync')
+            if (process.argv[3] == "WLs") {
+              var clients = []
+              sync.getSwitchCfg().then(json => {
+                for (client in json.Clients) {
+                  sync.saveFile(client, '');
+                  clients.push(client);
+                }
+                sync.saveFile('WLs.txt', clients.toString())
+              })
+            }
+            else {
+              // create one WL
+            }
+            break;
+          case "h":
+            if (!isNaN(dhNumber))
+              copyFile("Header", dhNumber);
+            else
+              copyFile("js/header.js");
+            break;
+          case "d":
+            copyFile("Default", dhNumber);
+            break;
+          case "dh":
+            copyFile("Default", dhNumber);
+            copyFile("Header", dhNumber);
+            break;
+          case "m":
+            copyFile("Main.aspx");
+            break;
+          case "l":
+            copyFile("Left.aspx");
+            break;
+          case "r":
+            copyFile("Right.aspx");
+            break;
+          case "lr":
+          case "rl":
+            copyFile("Left.aspx");
+            copyFile("Right.aspx");
+            break;
+          case "dmh":
+            copyFile("Default", dhNumber);
+            copyFile("Header", dhNumber);
+            copyFile("Main.aspx");
+            break;
+          case "dm":
+          case "md":
+            copyFile("Default", dhNumber);
+            copyFile("Main.aspx");
+            break;
+          case "dw":
+            copyFile("_View/ReqCredit1.aspx");
+            copyFile("_View/WashCredit1.aspx");
+            break;
+          case "deposit":
+            copyFile("_View/ReqCredit1.aspx");
+            break;
+          case "withdraw":
+            copyFile("_View/WashCredit1.aspx");
+            break;
+          case "hcl":
+            copyFile("js/header.js");
+            copyFile("js/login.js");
+            copyFile("js/common.js");
+            break;
+          case "c":
+            copyFile("js/common.js");
+            break;
+          case "lg":
+            copyFile("js/login.js");
+            break;
+          case "br":
+          case "BettingRulesWL":
+            copyFile("_View/BettingRulesWL.aspx");
+            break;
+          case "bruc":
+          case "BettingRulesWLUC":
+            copyFile("_View/BettingRulesWLUC.ascx");
+            break;
+          case "header.css":
+            copyFile("Images/theme/v1/header.css");
+            break;
+          case "index":
+            copyFile("Images/theme/v1/index.html");
+            break;
+          case "seo":
+            copyFile("seo", dhNumber);
+            break;
+          case "ft":
+            copyFile("ft", dhNumber);
+            break;
+          case "reg1":
+            copyFile("_View/Register1.aspx");
+            break;
+          case "reg2":
+            copyFile("_View/Register2.aspx");
+            break;
+          case "panel":
+            copyFile("_Bet/Panel.aspx");
+            break;
+          case "ct":
+          case "comptype":
+            sync.getSwitchCfg().then(json => {
+              var clients = json.Clients
+              var compTypeNumber = parseInt(process.argv[3])
+              log(compTypeNumber)
+              Object.keys(clients).forEach(function (nameWL) {
+                if (clients[nameWL].compType === compTypeNumber) {
+                  log('%s:', nameWL)
+                  log(clients[nameWL])
+                  switch (process.argv[4]) {
+                    case "o":
+                      openDHFile("Default", clients[nameWL].defaultNumber)
+                      openDHFile("Header", clients[nameWL].headerNumber)
+                      break
+                  }
+                  return
+                }
+              })
+            })
+            break;
+          case "o":
+            require("child_process").exec('start "" "' + dpPath + '"');
+            break;
+          case "z":
+            require("child_process").exec('start "" "' + copyPath + "\\DeployerZIP.cmd" + '"');
+            break;
+          case "help":
+            log(`
+    dpPath : Desktop\\Deployer\\Liga_New
+    ////////////////////////// White Label Task ////////////////////////////////
+    node c wl DPBOLA BUNGIO99
+    =======> create new odds, portal, menu and Image folder of new WL BUNGIO99, refer from DPBOLA
+    node c wl HDPBET
+    =======> copy 3 css file and image of DPBOLA
+    node c gen WLs
+    =======> gen latest all WLs for autocomplete command feature
+    ////////////////////////// Small Task ////////////////////////////////
+    node c bkimg HANANA
+    =======> copy Images/ to Images_WLs/Images_HANANA (backup only or commit)
+    node c h 23
+    =======> copy header23.aspx to deploy folder
+    node c d 21
+    =======>  copy default23.aspx to deploy folder
+    node c dh 23
+    =======> copy Default23.aspx and Header23.aspx to deploy folder
+    node c dhm 23
+    =======> copy Default23.aspx, Header23.aspx & Main.aspx to deploy folder
+    node dm 23 
+    =======> copy Default23.aspx & Main.aspx to deploy folder
+    node c m
+    =======> copy Main.aspx to deploy folder
+    node c lr
+    node c l
+    node c r
+    =======> copy Left.aspx and Right.aspx to deploy folder
+    node c dw
+    node c deposit
+    node c withdraw
+    =======> copy ReqCredit1.aspx(Deposit) and WashCredit1.aspx(Withdraw) to deploy folder
+    node c hcl
+    node c h
+    node c c
+    node c login.js
+    =======> copy header.js & common.js & login.js to deploy folder
+    node c br/BettingRulesWL
+    =======> copy BettingRulesWL.aspx to deploy folder
+    node c bruc/BettingRulesWLUC
+    =======> copy BettingRulesWLUC.ascx to deploy folder
+    node c header.css
+    =======> copy Images/theme/v1/header.css to deploy folder
+    ////////////////////////// Folder, Zip ////////////////////////////////
+    node c o
+    =======> open deploy folder
+    node c z
+    =======> zip deploy folder 
+    /////////////////////11111111111111111111111111111///// Check Name, Number new WL /////////////////
+    node c number HDPBET
+    node c num HDPBET
+    node c n HDPBET  
+    =======> Check info of HDPBET (comtype, header, default number, prefix)
+    node c number 129
+    node c num 129
+    node c n 129
+    =======> Check info of WL have default/ header 129 (comtype, header, default number, prefix)
+    node c number 129 o
+    node c number HDPBET o
+    =======> open header/default number by Visual Studio 
+    node c index
+    =======> copy images/theme/v1/index.html to deployer folder
+    node c seo 97
+    =======> copy SEO/DM97.ascx to deployer folder
+    node c ft 97
+    =======> copy SEO/FT97.ascx to deployer folder
+    node c reg1
+    =======> copy _View/Register1.aspxto deployer folder
+    node c reg2
+    =======> copy _View/Register1.aspxto deployer folder
+    node c panel
+    =======> copy _Bet/Panel.aspx to deployer folder
+    node c ct 123
+    =======> Check info of comtype number = 123
+            `)
+            break;
+        }
+        // hanble open optional param
+        switch (process.argv[2]) {
+          case "h":
+          case "d":
+          case "dh":
+          case "dm":
+          case "dmh":
+            if (process.argv[4] == "o" || process.argv[4] == "O")
+              require("child_process").exec('start "" "' + dpPath + '"');
+            else if (process.argv[4] === "z" || process.argv[4] === "Z")
+              require("child_process").exec('start "" "' + copyPath + "\\DeployerZIP.cmd" + '"');
+            else if (process.argv[4] === "oz" || process.argv[4] === "OZ" || process.argv[4] === "oZ" || process.argv[4] === "Oz") {
+              require("child_process").exec('start "" "' + dpPath + '"');
+              require("child_process").exec('start "" "' + copyPath + "\\DeployerZIP.cmd" + '"');
+            }
+            break;
+          case "l":
+          case "login.js":
+          case "r":
+          case "lr":
+          case "m":
+          case "dw":
+          case "br":
+          case "hcl":
+          case "header.css":
+          case "index":
+          case "bruc":
+          case "seo":
+          case "ft":
+          case "reg1":
+          case "reg2":
+          case "panel":
+            if (process.argv[3] == "o" || process.argv[3] == "O")
+              require("child_process").exec('start "" "' + dpPath + '"');
+            else if (process.argv[3] === "z" || process.argv[3] === "Z")
+              require("child_process").exec('start "" "' + copyPath + "\\DeployerZIP.cmd" + '"');
+            else if (process.argv[3] === "oz" || process.argv[3] === "OZ" || process.argv[3] === "oZ" || process.argv[3] === "Oz") {
+              require("child_process").exec('start "" "' + dpPath + '"');
+              require("child_process").exec('start "" "' + copyPath + "\\DeployerZIP.cmd" + '"');
+            }
+        }
+      }
+    }
+  }
+  main();
+})();
